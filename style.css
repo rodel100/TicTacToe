@@ -1,0 +1,11 @@
+#container{
+    display: grid;
+    width: 500px;
+    height: 500px;
+    margin: 5% 35%;
+    border: 1px solid black;
+    grid-template-columns: repeat(3, 1fr);
+}
+.grid{
+    border: 1px solid black;
+}

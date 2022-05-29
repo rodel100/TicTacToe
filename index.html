@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>TicTacToe</title>
+    <meta charset="UTF-8">
+    <meta name="Rodel Newton">
+    <meta name="Description" content="TicTacToeGame">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="container">
+    </div>
+    <script>        
+        const main = (() => {
+            let gameBoard = (() => {
+                let gameBoardArray = Array(9);
+                let makeGameBoard = () => {
+                let container = document.querySelector('#container')
+                for(let i = 0; i < (gameBoardArray.length); i++){
+                    let grid = document.createElement('div')
+                    grid.classList.add("grid", i)
+                    grid.innerHTML = "";
+                    container.appendChild(grid);}
+                    container.style.gridTemplateColumns = "repeat("+(Math.sqrt(gameBoardArray.length))+", 1fr)";}
+                    return {makeGameBoard}
+            })();
+            let player = (name, marker) => {
+                return {name, marker};
+            };
+            let displayController =  (() => {
+            })();
+            return {gameBoard, player, displayController}
+        })();
+        main.gameBoard.makeGameBoard();
+    </script>
+</body>
+
+</html>
