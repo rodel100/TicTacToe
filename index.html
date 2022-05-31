@@ -11,28 +11,60 @@
 <body>
     <div id="container">
     </div>
-    <script>        
+    <script>
         const main = (() => {
             let gameBoard = (() => {
-                let gameBoardArray = Array(9);
                 let makeGameBoard = () => {
-                let container = document.querySelector('#container')
-                for(let i = 0; i < (gameBoardArray.length); i++){
-                    let grid = document.createElement('div')
-                    grid.classList.add("grid", i)
-                    grid.innerHTML = "";
-                    container.appendChild(grid);}
-                    container.style.gridTemplateColumns = "repeat("+(Math.sqrt(gameBoardArray.length))+", 1fr)";}
-                    return {makeGameBoard}
+                    let container = document.querySelector('#container')
+                    for (let i = 0; i < (9); i++) {
+                        let grid = document.createElement('div')
+                        grid.classList.add("grid")
+                        grid.id = i
+                        grid.innerHTML = "";
+                        container.appendChild(grid);
+                    }
+                    container.style.gridTemplateColumns = "repeat(" + 3 + ", 1fr)";
+                }
+                return { makeGameBoard }
             })();
             let player = (name, marker) => {
-                return {name, marker};
+                return { name, marker };
             };
-            let displayController =  (() => {
+            let displayController = (() => {
+                let gameBoardArray = Array(9);
+                let clickFunction 
+                let currentMarker = (playerMarker) => {
+                    let grids = document.querySelectorAll('.grid');
+                    grids.forEach((div => {
+                        div.onclick = ("onclick", (e) => {
+                            if (div.innerHTML == "") {
+                                div.innerHTML = playerMarker
+                                gameBoardArray[div.id] = playerMarker
+                                console.log(gameBoardArray)
+                                if (playerMarker == "o"){
+                                    playerMarker = "x"
+                                    currentMarker(playerMarker);
+                                }
+                                else if (playerMarker == "x"){
+                                    playerMarker = "o"
+                                    currentMarker(playerMarker);
+                                }
+                            }
+                            else { alert("Input Another Tile") }
+                        })
+                    }))
+                };
+                return { currentMarker }
             })();
-            return {gameBoard, player, displayController}
-        })();
-        main.gameBoard.makeGameBoard();
+            const intialize = (() => {
+                let player1 = player("Jeff", "x");
+                let player2 = player("Bill", "o");
+                gameBoard.makeGameBoard();
+                displayController.currentMarker(player2.marker)
+            })
+            return { intialize }
+        })();;
+        main.intialize();
     </script>
 </body>
 
