@@ -17,21 +17,21 @@ const main = (() => {
         return { name, marker };
     };
     let displayController = (() => {
-        let gameBoardArray = Array(9); 
-        let gameEnd;
+        let gameBoardArray = Array(9);
+        let gameEnd = false;
         let currentMarker = (curMarker, player1, player2) => {
             let grids = document.querySelectorAll('.grid');
             grids.forEach(div => {
                 div.onclick = ("onclick", (e) => {
-                    if(gameEnd){curMarker = ""}
+                    if (gameEnd) { curMarker = "" }
                     else if (div.innerHTML == "") {
                         div.innerHTML = curMarker
                         gameBoardArray[div.id] = curMarker
-                        if (curMarker == player1.marker){
+                        if (curMarker == player1.marker) {
                             winChecker(player1)
                             curMarker = player2.marker
                         }
-                        else if (curMarker == player2.marker){
+                        else if (curMarker == player2.marker) {
                             winChecker(player2)
                             curMarker = player1.marker
                         }
@@ -42,17 +42,26 @@ const main = (() => {
         };
         let winChecker = (player) => {
             //RowChecker
-            if(player.marker == gameBoardArray[0] && player.marker == gameBoardArray[1] && player.marker == gameBoardArray[2] ||
+            if (player.marker == gameBoardArray[0] && player.marker == gameBoardArray[1] && player.marker == gameBoardArray[2] ||
                 player.marker == gameBoardArray[3] && player.marker == gameBoardArray[4] && player.marker == gameBoardArray[5] ||
                 player.marker == gameBoardArray[6] && player.marker == gameBoardArray[7] && player.marker == gameBoardArray[8] ||
-            //ColumnChecker
+                //ColumnChecker
                 player.marker == gameBoardArray[0] && player.marker == gameBoardArray[3] && player.marker == gameBoardArray[6] ||
                 player.marker == gameBoardArray[1] && player.marker == gameBoardArray[4] && player.marker == gameBoardArray[7] ||
                 player.marker == gameBoardArray[2] && player.marker == gameBoardArray[5] && player.marker == gameBoardArray[8] ||
-            //DiagonalChecker
+                //DiagonalChecker
                 player.marker == gameBoardArray[0] && player.marker == gameBoardArray[4] && player.marker == gameBoardArray[8] ||
-                player.marker == gameBoardArray[2] && player.marker == gameBoardArray[4] && player.marker == gameBoardArray[6]){gameend = true, alert (`Congrats, ${player.name}`)}
-    }
+                player.marker == gameBoardArray[2] && player.marker == gameBoardArray[4] && player.marker == gameBoardArray[6]) { return gameend = true, alert(`Congrats, ${player.name}`) }
+            {
+                //TieChecker
+                for (let int = 0; int < gameBoardArray.length; int++) {
+                    if (gameBoardArray[int] == null) {
+                        return
+                    }
+                }
+                return (alert("Tie"))
+            }
+        }
         return { currentMarker }
     })();
     const intialize = (() => {
