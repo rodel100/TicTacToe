@@ -79,6 +79,6 @@ const main = (() => {
     }
     return { intialize, reset}
 })();;
-let startbtn = document.querySelector('#start')
+let startbtn = document.querySelector('#start') 
 startbtn.innerHTML = "Start/Restart"
 startbtn.addEventListener('click', main.reset)
