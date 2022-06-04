@@ -17,9 +17,9 @@ const main = (() => {
         return { name, marker };
     };
     let displayController = (() => {
-        let gameBoardArray = Array(9);
         let gameEnd = false;
         let currentMarker = (curMarker, player1, player2) => {
+            let gameBoardArray = Array(9);
             let grids = document.querySelectorAll('.grid');
             grids.forEach(div => {
                 div.onclick = ("onclick", (e) => {
@@ -39,7 +39,6 @@ const main = (() => {
                     else { alert("Input Another Tile") }
                 })
             })
-        };
         let winChecker = (player) => {
             //RowChecker
             if (player.marker == gameBoardArray[0] && player.marker == gameBoardArray[1] && player.marker == gameBoardArray[2] ||
@@ -62,6 +61,7 @@ const main = (() => {
                 return (alert("Tie"))
             }
         }
+    };
         return { currentMarker }
     })();
     const intialize = (() => {
@@ -70,6 +70,15 @@ const main = (() => {
         gameBoard.makeGameBoard();
         displayController.currentMarker(player2.marker, player1, player2)
     })
-    return { intialize }
+    let reset = () => {
+        let oldgrid = document.querySelectorAll('.grid')
+        oldgrid.forEach(div => {
+            div.remove();
+        })
+        intialize();
+    }
+    return { intialize, reset}
 })();;
-main.intialize();
+let startbtn = document.querySelector('#start')
+startbtn.innerHTML = "Start/Restart"
+startbtn.addEventListener('click', main.reset)
