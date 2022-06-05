@@ -65,8 +65,8 @@ const main = (() => {
         return { currentMarker }
     })();
     const intialize = (() => {
-        let player1 = player("Jeff", "x");
-        let player2 = player("Bill", "o");
+        let player1 = player(prompt("First Player's Name"), "x");
+        let player2 = player(prompt("Second Player's Name"), "o");
         gameBoard.makeGameBoard();
         displayController.currentMarker(player2.marker, player1, player2)
     })
